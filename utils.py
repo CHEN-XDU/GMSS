@@ -58,7 +58,6 @@ def calc_con_loss(out_1, out_2, temperature=0.5):
     # [2*B, 2*B-1]
     sim_matrix = sim_matrix.masked_select(mask).view(2 * config.batch_size, -1)
 
-    # compute loss  投影之后的数据来计算loss、propogation
     pos_sim = torch.exp(torch.sum(out_1 * out_2, dim=-1) / temperature)
     # [2*B]
 
