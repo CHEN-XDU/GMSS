@@ -154,15 +154,3 @@ def create_contrastive(fstack, sstack, data, fjigsaw_parts=120, sjigsaw_parts=12
 
 
 
-if __name__ == '__main__':
-    import pdb
-    adjacency()
-    # train_data = MyDataset('MPED_Transfer/frequency_data/train_data_0.pt', consloader=False)
-    # train_data = DataLoader(dataset=train_data, batch_size=BATCH_SEIZE, shuffle=True)
-    # print('net 0\'s data')
-    # for ind, data in enumerate(train_data):
-    #     print(data.y)
-    #     import time
-    #     time.sleep(3)
-    #
-    # print('loaded')
