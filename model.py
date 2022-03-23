@@ -106,14 +106,6 @@ class JointlyTrainModel(nn.Module):
             return x1, x2, x3, x4, x5
         else:
             x3, e3 = args[0].x, args[0].edge_index  # original graph data
-            # x3 = self.conv1(x3, e3)
-            # x3 = F.relu(self.conv1(x3, e3))
-
-            # x3 = x3.view(self.batch, 62, -1)
-            # x3 = torch.mean(x3, dim=1)
-            # print(x3.shape)
-            # exit()
-            # return x3
 
             x3 = F.relu(self.conv1(x3, e3))
             x3 = x3.view(self.batch, -1)
