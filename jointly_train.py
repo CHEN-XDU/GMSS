@@ -101,7 +101,6 @@ def train(train_data, train_label, test_data, test_label, people):
     net = net.to(device)
     criterion = nn.CrossEntropyLoss().to(device)
     optimizer = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
-    # optimizer = torch.optim.Adam(net.parameters())
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=4, verbose=True,
                                                            threshold=0.0001,
                                                            threshold_mode='rel', cooldown=1, min_lr=0, eps=1e-8)
