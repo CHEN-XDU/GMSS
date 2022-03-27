@@ -84,6 +84,9 @@ def test(net, test_data, test_label, people, highest_acc, epoch):
 def train(train_data, train_label, test_data, test_label, people):
     highest_acc = 0.0
     
+    if not os.path.exists(f'{DATASET}_jointly_checkpoint'):
+        os.makedirs(f'{DATASET}_jointly_checkpoint')
+    
     if os.path.exists(f'{DATASET}_jointly_checkpoint/checkpoint_{people}.pkl'):
         check = torch.load(f'{DATASET}_jointly_checkpoint/checkpoint_{people}.pkl')
         highest_acc = check['ACC']
