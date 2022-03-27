@@ -64,10 +64,10 @@ def calc_con_loss(out_1, out_2, temperature=0.5):
     if config.num_jigsaw > 1:
         for i in range(1, config.num_jigsaw):
             _out_1 = move(out_1.clone(), i)
-            pos_sim += torch.exp(torch.sum(out_1 * _out_1, dim=-1) / temperature)
-            pos_sim += torch.exp(torch.sum(out_2 * _out_1, dim=-1) / temperature)
+            pos_sim = pos_sim + torch.exp(torch.sum(out_1 * _out_1, dim=-1) / temperature)
+            pos_sim = pos_sim + torch.exp(torch.sum(out_2 * _out_1, dim=-1) / temperature)
             _out_2 = move(out_2.clone(), i)
-            pos_sim += torch.exp(torch.sum(out_2 * _out_2, dim=-1) / temperature)
+            pos_sim = pos_sim + torch.exp(torch.sum(out_2 * _out_2, dim=-1) / temperature)
 
     pos_sim = torch.cat([pos_sim, pos_sim], dim=0)
 
