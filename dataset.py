@@ -126,7 +126,7 @@ def create_jigsaw(stack, data, jigsaw_parts=120, shuffle=False, batch_size=100, 
             graph.append(Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y))
     return DataLoader(graph, batch_size=batch_size, shuffle=shuffle, drop_last=drop_last, num_workers=config.num_workers)
 
-def create_contrastive(fstack, sstack, data, fjigsaw_parts=120, sjigsaw_parts=128, shuffle=True, batch_size=100, drop_last=True, num_jigsaw=1):
+def create_contrastive(fstack, sstack, data, timeseed, fjigsaw_parts=120, sjigsaw_parts=128, shuffle=True, batch_size=100, drop_last=True, num_jigsaw=1):
     '''
     combine fre & spa data agumentation
     '''
@@ -136,7 +136,8 @@ def create_contrastive(fstack, sstack, data, fjigsaw_parts=120, sjigsaw_parts=12
     edge_attr = torch.from_numpy(edge_attr)
     graph = []
     
-    np.random.shuffle(data)
+    random.seed(timeseed)
+    random.shuffle(data)
     for i in range(data.shape[0]):
         for j in range(num_jigsaw):
             spseudo = np.random.randint(0, sjigsaw_parts)
