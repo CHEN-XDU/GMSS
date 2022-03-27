@@ -15,7 +15,7 @@ class JointlyTrainModel(nn.Module):
         linearsize = 512
 
 
-        # K = [1,2,3,4,5,6]
+        # K = [1,2,3,4,5,6,7,8,9,10]
         self.conv1 = gnn.ChebConv(inchannel, outchannel, K=config.K)
 
         self.HF = nn.Sequential(
