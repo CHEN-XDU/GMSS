@@ -8,6 +8,7 @@ from model import JointlyTrainModel
 from AutoWeight import AutomaticWeightedLoss
 import os
 from itertools import cycle
+import time
 import pdb
 
 path = '/GNN_NPY_DATASETS/SEED/data_dependent'
@@ -108,8 +109,9 @@ def train(train_data, train_label, test_data, test_label, people):
     floader = create_jigsaw(fre_stack, train_data, shuffle=True, batch_size=batch_size, num_jigsaw=num_jigsaw)
     sloader = create_jigsaw(spa_stack, train_data, shuffle=True, batch_size=batch_size, num_jigsaw=num_jigsaw)
     gloader = create_graph(train_data, train_label, shuffle=True, batch_size=batch_size)
-    train_loader1 = create_contrastive(fre_stack, spa_stack, train_data, shuffle=True, batch_size=batch_size, num_jigsaw=num_jigsaw)
-    train_loader2 = create_contrastive(fre_stack, spa_stack, train_data, shuffle=True, batch_size=batch_size,  num_jigsaw=num_jigsaw)
+    timeseed = time.time()
+    train_loader1 = create_contrastive(fre_stack, spa_stack, train_data, timeseed, shuffle=True, batch_size=batch_size, num_jigsaw=num_jigsaw)
+    train_loader2 = create_contrastive(fre_stack, spa_stack, train_data, timeseed, shuffle=True, batch_size=batch_size,  num_jigsaw=num_jigsaw)
 
     for epoch in range(epochs):
 
@@ -180,7 +182,7 @@ def runs(people):
 
 
 if __name__ == '__main__':
-    for i in range(12,14):
+    for i in range(45):
         runs(i+1)
 
  
