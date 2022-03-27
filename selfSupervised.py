@@ -3,7 +3,7 @@ import torch.nn as nn
 import numpy as np
 import config
 from utils import calc_con_loss
-from dataset import fre_stack, spa_stack, agumentation, create_graph, create_jigsaw
+from dataset import fre_stack, spa_stack, create_contrastive, create_graph, create_jigsaw
 from tqdm import tqdm
 from model import SelfSupervisedTrain, SelfSupervisedTest
 from AutoWeight import AutomaticWeightedLoss
@@ -76,7 +76,6 @@ def validateTrain(train_data, train_label, test_data, test_label, people, HC):
         pretrain_dict = torch.load(f'unsupervisedDirectory/pretrain/{DATASET}_checkpoint/checkpoint_{people}.pkl')
 
     frozen_list = ['conv1.weight', 'conv1.bias']
-    # pretrain_dict = torch.load(f'{DATASET}_pretrain_checkpoint/checkpoint_{people}.pkl')['model']
 
     pretrain_dict = {k: v for k, v in pretrain_dict.items() if k in frozen_list}
 
@@ -152,8 +151,9 @@ def train(train_data, train_label, test_data, test_label, people):
         floader = create_jigsaw(fre_stack, train_data, shuffle=True, batch_size=batch_size)
         sloader = create_jigsaw(spa_stack, train_data, shuffle=True, batch_size=batch_size)
         # gloader = create_graph(train_data, train_label, SEED=SEED, shuffle=True, batch_size=batch_size)
-        train_loader1 = agumentation(fre_stack, spa_stack, train_data, shuffle=True, batch_size=batch_size)
-        train_loader2 = agumentation(fre_stack, spa_stack, train_data, shuffle=True, batch_size=batch_size)
+        timeseed = time.time()
+        train_loader1 = create_contrastive(fre_stack, spa_stack, train_data.copy(), timeseed, shuffle=True, batch_size=batch_size)
+        train_loader2 = create_contrastive(fre_stack, spa_stack, train_data.copy(), timeseed, shuffle=True, batch_size=batch_size)
         loader = zip(floader, sloader, train_loader1, train_loader2)
         epoch_loss = 0.0
         epoch_loss1 = 0.0
