@@ -110,8 +110,8 @@ def train(train_data, train_label, test_data, test_label, people):
     sloader = create_jigsaw(spa_stack, train_data, shuffle=True, batch_size=batch_size, num_jigsaw=num_jigsaw)
     gloader = create_graph(train_data, train_label, shuffle=True, batch_size=batch_size)
     timeseed = time.time()
-    train_loader1 = create_contrastive(fre_stack, spa_stack, train_data, timeseed, shuffle=True, batch_size=batch_size, num_jigsaw=num_jigsaw)
-    train_loader2 = create_contrastive(fre_stack, spa_stack, train_data, timeseed, shuffle=True, batch_size=batch_size,  num_jigsaw=num_jigsaw)
+    train_loader1 = create_contrastive(fre_stack, spa_stack, train_data.copy(), timeseed, shuffle=True, batch_size=batch_size, num_jigsaw=num_jigsaw)
+    train_loader2 = create_contrastive(fre_stack, spa_stack, train_data.copy(), timeseed, shuffle=True, batch_size=batch_size,  num_jigsaw=num_jigsaw)
 
     for epoch in range(epochs):
 
