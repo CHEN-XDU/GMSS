@@ -136,8 +136,9 @@ def create_contrastive(fstack, sstack, data, timeseed, fjigsaw_parts=120, sjigsa
     edge_attr = torch.from_numpy(edge_attr)
     graph = []
     
-    random.seed(timeseed)
-    random.shuffle(data)
+    if shuffle:
+        random.seed(timeseed)
+        random.shuffle(data)
     for i in range(data.shape[0]):
         for j in range(num_jigsaw):
             spseudo = np.random.randint(0, sjigsaw_parts)
