@@ -209,4 +209,3 @@ class SelfSupervisedTest(nn.Module):
         out = self.classifier(out)
         out = F.softmax(out, dim=1)
         return out
-
