@@ -10,14 +10,10 @@ import random
 
 path = '/GNN_NPY_DATASETS/SEED/data_dependent'
 
-
 def fre_stack(data, pseudo_label):
     data = data.T
     P_hat = np.array(list(itertools.permutations(list(range(5)), 5)))  # Full Permutation
     selected = P_hat[pseudo_label]
-    # permutation = np.load('max_hamming_set_5_32.npy')
-    # selected = permutation[pseudo_label]
-
 
     ret = np.vstack((data[selected[0]], data[selected[1]]))
     for i in range(2, len(selected)):
@@ -79,9 +75,7 @@ def adjacency():
 
     weight_ = np.ones(236).astype('float32')
     A = scipy.sparse.csr_matrix((weight_, (row_, col_)), shape=(62, 62))
-    # print(A)
-
-    # return A
+    
     return row_, col_, weight_
 
 def data_reader(index):
@@ -106,7 +100,6 @@ def create_graph(data, label, shuffle=False, batch_size=100, drop_last=True):
         y = torch.tensor(label[i], dtype=torch.long)
         graph.append(Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y))
     return DataLoader(graph, batch_size=batch_size, shuffle=shuffle, drop_last=drop_last, num_workers=config.num_workers)
-    # return graph
 
 def create_jigsaw(stack, data, jigsaw_parts=120, shuffle=False, batch_size=100, drop_last=True, num_jigsaw=1):
     row_, col_, weight_ = adjacency()
