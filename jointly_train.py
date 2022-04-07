@@ -187,5 +187,3 @@ def runs(people):
 if __name__ == '__main__':
     for i in range(45):
         runs(i+1)
-
- 
