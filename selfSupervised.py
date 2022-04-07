@@ -28,7 +28,6 @@ if DEPENDENT == 'data_independent':
     DATASET = DATASET+'_'+DEPENDENT
 
 
-
 def validateTest(validateNet, test_data, test_label, people, highest_acc):
 
     criterion = nn.CrossEntropyLoss().to(device)
@@ -43,7 +42,6 @@ def validateTest(validateNet, test_data, test_label, people, highest_acc):
         y = data.y
         _, pre = torch.max(out, dim=1)
 
-        # pdb.set_trace()
         correct_pred += sum([1 for a, b in zip(pre, y) if a == b])
         loss = criterion(out, y)
 
