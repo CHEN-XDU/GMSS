@@ -152,7 +152,3 @@ def create_contrastive(fstack, sstack, data, timeseed, fjigsaw_parts=120, sjigsa
             graph.append(Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y))
 
     return DataLoader(graph, batch_size=batch_size, shuffle=False, drop_last=drop_last, num_workers=config.num_workers)
-
-
-
-
