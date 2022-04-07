@@ -71,7 +71,7 @@ def calc_con_loss(out_1, out_2, temperature=0.5):
 
     pos_sim = torch.cat([pos_sim, pos_sim], dim=0)
 
-    loss = (- torch.log(pos_sim / sim_matrix.sum(dim=-1))).mean()
+    loss = 2*(- torch.log(pos_sim / sim_matrix.sum(dim=-1))).mean()
 
     return loss
 
